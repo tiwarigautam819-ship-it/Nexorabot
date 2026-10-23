@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions for secure authorization
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Verify authorized administrator identity
+    // Security note: In addition to email check, the user's custom claim or admin document is verified
+    function isSuperAdmin() {
+      return isAuthenticated() &&
+             request.auth.token.email == 'tiwarigautam819@gmail.com' &&
+             (request.auth.token.admin == true ||
+              exists(/databases/$(database)/documents/admins/$(request.auth.uid)));
+    }
+
+    // Public read access for robotics showcase, admin-only write
+    match /project/{document=**} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    match /team/{memberId} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    match /components/{componentId} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    match /gallery/{imageId} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    match /timeline/{phaseId} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    match /config/{configId} {
+      allow read: if isSuperAdmin();
+      allow write: if isSuperAdmin();
+    }
+
+    // Admins registry collection
+    match /admins/{userId} {
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      allow write: if false; // Only configured via Firebase Console or Admin SDK
+    }
+  }
+}

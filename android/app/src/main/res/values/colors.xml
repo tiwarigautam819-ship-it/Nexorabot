@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="nexora_bg_dark">#060B16</color>
+    <color name="nexora_surface">#09152B</color>
+    <color name="nexora_cyan">#00E5FF</color>
+    <color name="nexora_blue">#2563EB</color>
+    <color name="nexora_accent">#06B6D4</color>
+    <color name="nexora_red">#EF4444</color>
+</resources>

@@ -1,0 +1,32 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    function isSuperAdmin() {
+      return request.auth != null &&
+             request.auth.token.email == 'tiwarigautam819@gmail.com';
+    }
+
+    // Public read for gallery and team photos; writes strictly limited to verified admin
+    match /gallery/{allImages=**} {
+      allow read: if true;
+      allow write: if isSuperAdmin() &&
+                   request.resource.size < 10 * 1024 * 1024 &&
+                   request.resource.contentType.matches('image/.*');
+    }
+
+    match /team/{allImages=**} {
+      allow read: if true;
+      allow write: if isSuperAdmin() &&
+                   request.resource.size < 5 * 1024 * 1024 &&
+                   request.resource.contentType.matches('image/.*');
+    }
+
+    match /components/{allImages=**} {
+      allow read: if true;
+      allow write: if isSuperAdmin() &&
+                   request.resource.size < 5 * 1024 * 1024 &&
+                   request.resource.contentType.matches('image/.*');
+    }
+  }
+}

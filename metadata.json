@@ -1,0 +1,6 @@
+{
+  "name": "NEXORA – Robot Control Engine",
+  "description": "Professional Android application and mobile control engine for the Nexora Smart Robot prototype with real-time controls, sensor telemetry, and project management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

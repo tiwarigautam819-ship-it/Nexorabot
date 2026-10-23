@@ -1,0 +1,63 @@
+{
+  "entities": {
+    "TeamMember": {
+      "title": "TeamMember",
+      "description": "Robotics engineering team member profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "contribution": { "type": "string" },
+        "bio": { "type": "string" },
+        "photoUrl": { "type": "string" }
+      },
+      "required": ["id", "name", "role", "photoUrl"]
+    },
+    "GalleryItem": {
+      "title": "GalleryItem",
+      "description": "Project prototype and circuit photographs",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "category": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "date": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["id", "title", "imageUrl"]
+    },
+    "ComponentItem": {
+      "title": "ComponentItem",
+      "description": "Robot hardware components catalog",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "purpose": { "type": "string" },
+        "specification": { "type": "string" },
+        "status": { "type": "string" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["id", "name", "status"]
+    }
+  },
+  "firestore": {
+    "/team/{memberId}": {
+      "schema": "TeamMember",
+      "description": "Robotics team member profiles"
+    },
+    "/gallery/{imageId}": {
+      "schema": "GalleryItem",
+      "description": "Project prototype and circuit photographs"
+    },
+    "/components/{componentId}": {
+      "schema": "ComponentItem",
+      "description": "Robot hardware components catalog"
+    }
+  }
+}
